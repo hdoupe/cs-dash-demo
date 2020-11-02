@@ -20,6 +20,9 @@ app = dash.Dash(
     __name__, external_stylesheets=external_stylesheets, url_base_pathname=url_base_pathname
 )
 
+# This will be called by gunicorn when serving the app on C/S.
+server = app.server
+
 app.layout = html.Div([
     dcc.Graph(id='graph-with-slider'),
     dcc.Slider(
@@ -46,7 +49,6 @@ def update_figure(selected_year):
     fig.update_layout(transition_duration=500)
 
     return fig
-
 
 if __name__ == '__main__':
     app.run_server(debug=True)
